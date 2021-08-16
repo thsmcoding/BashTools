@@ -17,3 +17,8 @@ checkphoneN() {
 	[[ "$line" =~ ^[0-9]{3}\-[0-9]{3}\-[0-9]{4}$ || "$line" =~ ^\([0-9]{3}\)\ [0-9]{3}\-[0-9]{4} ]] && echo "$line";
     done <"$filename"
 }
+trpose() {
+    [[ $# -eq 1 ]] || (echo "Missing #1 arg"; return)
+    local filename=$1; first="$filename"|head -1
+    echo "$first"
+}
