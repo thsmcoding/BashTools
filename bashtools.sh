@@ -9,3 +9,11 @@ printN() {
 	echo "Fewer lines in the file than given arg."; return;
     fi    
 }
+checkphoneN() {
+    [[ $# -eq 1 ]] || (echo "Please enter an argument"; return)
+    filename=$1
+    while read -r line
+    do
+	[[ "$line" =~ ^[0-9]{3}\-[0-9]{3}\-[0-9]{4}$ || "$line" =~ ^\([0-9]{3}\)\ [0-9]{3}\-[0-9]{4} ]] && echo "$line";
+    done <"$filename"
+}
