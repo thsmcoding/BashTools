@@ -19,6 +19,10 @@ checkphoneN() {
 }
 trpose() {
     [[ $# -eq 1 ]] || (echo "Missing #1 arg"; return)
-    local filename=$1; first="$filename"|head -1
-    echo "$first"
+    local filename=$1; first=`head -n 1 $filename`
+    echo  "FIRST LINE IS :" $first
+    local counting=`grep -o " " <<<"$first" | wc -l`
+    counting=$((counting+1))
+    echo "$counting"
+    	 
 }
