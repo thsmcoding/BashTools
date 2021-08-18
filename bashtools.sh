@@ -24,5 +24,12 @@ trpose() {
     local counting=`grep -o " " <<<"$first" | wc -l`
     counting=$((counting+1))
     echo "$counting"
-    	 
+}
+rgengine() {
+    match=`echo "happy not"| egrep "happy|happy not" | wc -w`;
+    if [[ $match -eq 2 ]]; then
+	echo "Your REGEX engine is TEXT-DIRECTED"
+    elif [[ $match -eq 1 ]]; then
+	echo "Your REGEX engine is REGEX-DIRECTED"   
+    fi
 }
