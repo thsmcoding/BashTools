@@ -12,9 +12,12 @@ printN() {
 checkphoneN() {
     [[ $# -eq 1 ]] || (echo "Please enter an argument"; return)
     filename=$1
-    while read -r line
+    rg1='^[0-9]{3}\-[0-9]{3}\-[0-9]{4}$'
+    rg2='^\([0-9]{3}\) [0-9]{3}\-[0-9]{4}$'
+    while read -r line	
     do
-	[[ "$line" =~ ^[0-9]{3}\-[0-9]{3}\-[0-9]{4}$ || "$line" =~ ^\([0-9]{3}\)\ [0-9]{3}\-[0-9]{4} ]] && echo "$line";
+	#[[ "$line" =~ ^[:digit:]{3}\-[:digit:]{3}\-[:digit:]{4}$ || "$line" =~ ^\([:digit:]{3}\)\ [:digit:]{3}\-[:digit:]{4} ]] && echo "$line";
+      	[[ "$line" =~ $rg1 || "$line" =~ $rg2 ]] && echo "$line";
     done <"$filename"
 }
 trpose() {
