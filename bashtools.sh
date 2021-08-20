@@ -23,10 +23,28 @@ checkphoneN() {
 trpose() {
     [[ $# -eq 1 ]] || (echo "Missing #1 arg"; return)
     local filename=$1; first=`head -n 1 $filename`
-    echo  "FIRST LINE IS :" $first
+    #echo  "FIRST LINE IS :" $first
     local counting=`grep -o " " <<<"$first" | wc -l`
     counting=$((counting+1))
-    echo "$counting"
+    #echo "$counting"
+    awk '
+    NR == 1 {
+       	    n = NF
+    	    for (i = 1;i <= NF; i++)
+	     	row[i] = $i
+	    next
+    }
+    {
+	if (NF > n)
+		   n = NF
+		for(i= 1; i<=NF; i++)
+		       row[i] = row[i] " " $i	 
+    }
+    END {
+	     for(i = 1; i<=n; i++)
+	     print row[i]
+    }' ${1+"$@"}
+
 }
 rgengine() {
     match=`echo "happy not"| egrep "happy|happy not" | wc -w`;
