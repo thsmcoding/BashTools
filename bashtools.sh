@@ -1,8 +1,18 @@
 #!/bin/bash
+fillin() {
+    [[ $# -eq 2 ]] ||(echo "Function fillin : missing args"; return)
+    nameF=$2
+    count=$1
+    [[ -f './$nameF' ]] || touch ./"$nameF"
+    echo "Enter text to fill in your file :" line
+    for($i=1; $i<$count ;$i++)
+    do
+	echo $line >> $nameF
+    done
+}
 printN() {
-    [[ $# -eq 2 ]] || (echo "Missing filename or line number"&&return)
+    [[ $# -eq 2 ]] || (echo "Function printN : Missing filename or line number"&&return)
     nrows=$(eval wc -l "$1" | awk '{ print $1 }');
-    echo "FILE COUNT LINES: " $nrows
     if [[ $nrows -ge $2 ]] ; then
 	cat -n $1 | grep $2 | awk -F $2 '{ print $NF }'
     else
@@ -10,10 +20,10 @@ printN() {
     fi    
 }
 checkphoneN() {
-    [[ $# -eq 1 ]] || (echo "Please enter an argument"; return)
+    [[ $# -eq 1 ]] || (echo "Function checkphoneN : Please enter an argument"; return)
     filename=$1
-    rg1='^[0-9]{3}\-[0-9]{3}\-[0-9]{4}$'
-    rg2='^\([0-9]{3}\) [0-9]{3}\-[0-9]{4}$'
+    rg1='^[:digit]{3}\-[:digit:]{3}\-[:digit:]{4}$'
+    rg2='^\([:digit:]{3}\) [:digit:]{3}\-[:digit:]{4}$'
     while read -r line	
     do
 	#[[ "$line" =~ ^[:digit:]{3}\-[:digit:]{3}\-[:digit:]{4}$ || "$line" =~ ^\([:digit:]{3}\)\ [:digit:]{3}\-[:digit:]{4} ]] && echo "$line";
