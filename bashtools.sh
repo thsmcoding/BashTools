@@ -64,3 +64,6 @@ rgengine() {
 	echo "Your REGEX engine is REGEX-DIRECTED"   
     fi
 }
+wdfrequency() {
+    tr -s [:blank:] '\n' < "test.txt" | tr -s [:punct:] ' '|sort| grep -c "regex"
+}
