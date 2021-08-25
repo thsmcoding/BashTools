@@ -5,7 +5,7 @@ fillin() {
     count=$1
     [[ -f './$nameF' ]] || touch ./"$nameF"
     echo "Enter text to fill in your file :" line
-    for($i=1; $i<$count ;$i++)
+    for ((i=1; i<$count;i++))
     do
 	echo $line >> $nameF
     done
@@ -64,6 +64,8 @@ rgengine() {
 	echo "Your REGEX engine is REGEX-DIRECTED"   
     fi
 }
-wdfrequency() {
-    tr -s [:blank:] '\n' < "test.txt" | tr -s [:punct:] ' '|sort| grep -c "regex"
+wdfreq() {
+    [[ $# -eq 1 ]] || (echo "Missing file"; return)
+    fileN=$1
+    tr -s [:blank:] '\n' < $fileN| tr -s [:punct:] ' '|xargs -d '\n' -I{} sh -c 'echo {} $(eval grep -ow {} "test.txt"|wc -w)'|sort -k2 -nr|uniq
 }
