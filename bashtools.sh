@@ -67,5 +67,5 @@ rgengine() {
 wdfreq() {
     [[ $# -eq 1 ]] || (echo "Missing file"; return)
     fileN=$1
-    tr -s [:blank:] '\n' < $fileN| tr -s [:punct:] ' '|xargs -d '\n' -I{} sh -c 'echo {} $(eval grep -ow {} '$fileN'|wc -w) '|sort -k2 -nr|uniq
+    tr -s [:blank:] '\n' < $fileN| tr -s [:punct:] ' '|xargs -d '\n' -I{} sh -c 'v={}; echo {} $(eval grep -ow {} '$fileN'|wc -w) `expr length {}`'|sort -k2 -nr|uniq
 }
