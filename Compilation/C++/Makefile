@@ -9,7 +9,7 @@ CC = gcc -Wall
 $(EX) : $(OBJFILES)
 	$(CC) -o $(EX) $(OBJFILES)
 
-$(OBJFILES) : $(SOURCES) 
+$(OBJFILES) : $(HEADERS) 
 	$(CC) -c $(SOURCES)
 
 .PHONY : clean
